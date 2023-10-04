@@ -2,22 +2,41 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+    <h1>Gerenciador de Despesas</h1>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <h2>Categorias</h2>
+    <form action="/categories" method="POST">
+        @csrf
+        <input type="text" name="name" placeholder="Nome da Categoria" required>
+        <input type="number" name="value" placeholder="Valor da Categoria" required>
+        <button type="submit">Adicionar Categoria</button>
+    </form>
 
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
+    <h2>Despesas</h2>
+    <table id="expenses">
+        <tr>
+            <th>Categoria</th>
+            <th>Valor</th>
+            <th>Ações</th>
+        </tr>
+        @foreach ($categories as $category)
+            <tr>
+                <td>{{ $category->name }}</td>
+                <td>{{ $category->value }}</td>
+                <td>
+                    <form action="/categories/{{ $category->id }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit">Editar</button>
+                    </form>
+                    <form action="/categories/{{ $category->id }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">Apagar</button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+    </table>
 </div>
 @endsection
