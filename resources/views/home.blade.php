@@ -24,11 +24,7 @@
                 <td>{{ $category->name }}</td>
                 <td>{{ $category->value }}</td>
                 <td>
-                    <form action="/categories/{{ $category->id }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <button type="submit">Editar</button>
-                    </form>
+                <a href="/categories/{{ $category->id }}" class="btn btn-primary">Editar</a>
                     <form action="/categories/{{ $category->id }}" method="POST">
                         @csrf
                         @method('DELETE')

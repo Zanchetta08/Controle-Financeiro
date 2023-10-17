@@ -19,8 +19,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/', 'CategoryController@index');
-Route::post('/categories', 'CategoryController@store');
-Route::put('/categories/{id}', 'CategoryController@update');
-Route::delete('/categories/{id}', 'CategoryController@destroy');
+Route::get('/home', [App\Http\Controllers\CategoryController::class, 'index'])->name('home');
+
+Route::get('/categories', 'CategoryController@index');
+Route::post('/categories', [App\Http\Controllers\CategoryController::class, 'store']);
+Route::put('/categories/update/{id}', [App\Http\Controllers\CategoryController::class, 'update']);
+Route::get('/categories/{id}', [App\Http\Controllers\CategoryController::class, 'edit']);
+Route::delete('/categories/{id}', [App\Http\Controllers\CategoryController::class, 'destroy']);

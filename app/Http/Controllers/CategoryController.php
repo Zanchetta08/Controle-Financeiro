@@ -25,7 +25,7 @@ class CategoryController extends Controller
             'value' => $request->input('value'),
         ]);
 
-        return redirect('/');
+        return redirect('/home');
     }
 
     public function update(Request $request, $id)
@@ -41,14 +41,22 @@ class CategoryController extends Controller
             'value' => $request->input('value'),
         ]);
 
-        return redirect('/');
+        return redirect('/home');
     }
+
+    public function edit($id)
+    {
+        $category = Category::findOrFail($id);
+
+        return view('categories.edit', ['category' => $category]);
+    }    
+    
 
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
         $category->delete();
 
-        return redirect('/');
+        return redirect('/home');
     }
 }
