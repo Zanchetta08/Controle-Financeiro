@@ -20,3 +20,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::post('/renda', [App\Http\Controllers\HomeController::class, 'store']);
+
+//=============================================================== Despesas  
+Route::post('/despesas', [App\Http\Controllers\HomeController::class, 'storeDespesa']);
+Route::delete('/despesas/{id}', [App\Http\Controllers\HomeController::class,'destroyDespesa']);
+
+//=============================================================== Categoria
+Route::post('/categorias', [App\Http\Controllers\HomeController::class, 'storeCategoria']);
+Route::get('/categorias/edit/{id}', [App\Http\Controllers\HomeController::class,'editCategoria']);
+Route::put('/categorias/update/{id}', [App\Http\Controllers\HomeController::class,'updateCategoria']);
+Route::delete('/categorias/{id}', [App\Http\Controllers\HomeController::class,'destroyCategoria']);
