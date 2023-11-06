@@ -153,8 +153,8 @@
                     <p><strong>Categoria:</strong> {{ $despesa->categoria->nome }}</p>
                 </div>
                 <div class="modal-footer">
-                    <!--<button type="button" class="btn btn-primary">Editar Despesa</button>
-                    <form action="/despesas/{{ $despesa->id }}" method="POST">-->
+                    <!-- <button type="button" class="btn btn-primary">Editar Despesa</button>
+                   <form action="/despesas/{{ $despesa->id }}" method="POST">-->
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Deletar Despesa</button>
