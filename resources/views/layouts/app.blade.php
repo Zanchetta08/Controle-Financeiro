@@ -21,6 +21,27 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+<style>
+    .clickable-row {
+        cursor: pointer;
+        background-color: #b0b0b0 ; /* Cor de fundo */
+        color: #fff; /* Cor do texto */
+        padding: 15px; /* Espaçamento interno aumentado */
+        border-radius: 10px; /* Borda arredondada */
+        transition: background-color 0.2s; /* Efeito de transição na cor de fundo */
+        border: 10px;
+        font-size: 30px; /* Tamanho da fonte aumentado */
+    }
+
+    .clickable-row:hover {
+        background-color: #a9a9a9; /* Cor de fundo quando hover */
+    }
+
+    .lado{
+        display: inline-block;
+        margin-right: 10px;
+    }
+</style>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
