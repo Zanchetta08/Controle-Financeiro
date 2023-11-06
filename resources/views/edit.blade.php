@@ -18,6 +18,10 @@
                             <label>Valor Máximo da Categoria:</label><br>
                             <input type="text" class="form-control" name="editvalorcategoria" value="{{ $categoria->value }}">
                         </div>
+                        <div>
+                            <label>Valor Da Meta de Economia:</label><br>
+                            <input type="text" class="form-control" name="editvalorEconomia" value="{{ $categoria->valueEconomia }}">
+                        </div>
                             <input  type="submit" class="btn btn-primary" value="Editar Categoria">
                     </form>
                 </div>

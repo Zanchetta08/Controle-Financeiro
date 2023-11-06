@@ -37,24 +37,27 @@
                 <div class="modal fade" id="categoriaModal" tabindex="-1" aria-labelledby="categoriaModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="categoriaModalLabel">Adicione uma Categoria</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="/categorias" method="POST">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label for="nomecategoria">Nome Categoria:</label>
-                                        <input type="text" id="nomecategoria" class="form-control" name="nomecategoria">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="valorcategoria">Valor Máximo da Categoria:</label>
-                                        <input type="text" id="valorcategoria" class="form-control" name="valorcategoria">
-                                    </div>
-                                    <input type="submit" class="btn btn-primary" value="Criar Categoria">
-                                </form>
-                            </div>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="categoriaModalLabel">Adicione uma Categoria</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/categorias" method="POST">
+                                @csrf
+                                <div>
+                                    <label for="nomecategoria">Nome Categoria:</label><br>
+                                    <input type="text" id="nomecategoria" class="form-control" name="nomecategoria">
+                                </div>
+                                <div>
+                                    <label for="valorcategoria">Valor Máximo da Categoria:</label><br>
+                                    <input type="text" id="valorcategoria" class="form-control" name="valorcategoria">
+                                </div>
+                                <div>
+                                    <label for="valoreconomia">Valor da Meta de Economia:</label><br>
+                                    <input type="text" id="valoreconomia" class="form-control" name="valoreconomia">
+                                </div>
+                                <input  type="submit" class="btn btn-primary" value="Criar Categoria">
+                            </form> 
                         </div>
                     </div>
                 </div>
@@ -125,16 +128,20 @@
                         </td>-->
                     </td>
                     @endforeach
+
                 </tr> <!-- Feche a linha de tabela fora do loop -->
             </tbody>
         </table>
     </div>
 </div>
 <div>
-    <h3 class="d-flex justify-content-center">Alertas</h3>
-    @foreach($somaValoresPorCategoria as $somaValor)
-        <p class="d-flex justify-content-center text-danger"><strong>A categoria {{ $somaValor['nome'] }} está com um valor acumulado de 80% ou mais! Valor total até agora: R${{ $somaValor['somaValores'] }}</strong></p>
-    @endforeach
+     <h3 class="d-flex justify-content-center">Alertas</h3>
+            @foreach($somaValoresPorCategoria as $somaValor)
+                <p class="d-flex justify-content-center text-danger"><strong>A categoria {{ $somaValor['nome']}} está com um valor acumulado de 80% ou mais! Valor total até agora: R${{ $somaValor['somaValores'] }}</strong></p>
+            @endforeach
+            @foreach($naoAtingiu as $nao)
+                <p class="d-flex justify-content-center text-danger"><strong>A categoria {{ $nao['nome']}} não conseguiu atingir sua meta de economia, passando em: R${{ $nao['passou'] }}</strong></p>
+            @endforeach
 </div>
 
 
@@ -167,6 +174,7 @@
                     </form>
                 </div>
             </div>
+
         </div>
     </div>
 @endforeach
