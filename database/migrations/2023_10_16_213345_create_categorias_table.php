@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->decimal('value', 10, 2);
+            $table->decimal('valueEconomia', 10, 2);
             $table->timestamps();
         });
     }

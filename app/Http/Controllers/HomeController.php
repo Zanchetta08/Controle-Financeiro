@@ -29,14 +29,20 @@ class HomeController extends Controller
         $despesas = Despesa::with('categoria')->get();
 
         $somaValoresPorCategoria = [];
+        $naoAtingiu = [];
 
         foreach ($categorias as $categoria) {
             $somaValores = Despesa::where('categoria_id', $categoria->id)->sum('valor');
             if($somaValores >= 0.8 * $categoria->value){
                 $somaValoresPorCategoria[$categoria->id] = ['nome' => $categoria->nome, 'somaValores' => $somaValores];
             }
+            if($somaValores > ($categoria->value - $categoria->valueEconomia)){
+                $passou = $somaValores - ($categoria->value - $categoria->valueEconomia);
+                $naoAtingiu[$categoria->id] = ['nome' => $categoria->nome, 'passou' => $passou];
+            }
         }
-        return view('home', ['categorias' => $categorias, 'despesas' => $despesas, 'somaValoresPorCategoria' => $somaValoresPorCategoria]);
+
+        return view('home', ['categorias' => $categorias, 'despesas' => $despesas, 'somaValoresPorCategoria' => $somaValoresPorCategoria, 'naoAtingiu' => $naoAtingiu]);
     }
 
     public function store(Request $request)
@@ -75,6 +81,7 @@ class HomeController extends Controller
         $categoria = new Categoria; 
         $categoria->nome = $request->nomecategoria;
         $categoria->value = $request->valorcategoria;
+        $categoria->valueEconomia = $request->valoreconomia;
         $categoria->save();
 
         return redirect()->route('home');
@@ -85,7 +92,7 @@ class HomeController extends Controller
     public function updateCategoria(Request $request){
 
         $categoria = Categoria::findOrFail($request->id);
-        $categoria->update(['nome' => $request->editnomecategoria, 'value' => $request->editvalorcategoria]);
+        $categoria->update(['nome' => $request->editnomecategoria, 'value' => $request->editvalorcategoria, 'valueEconomia' => $request->editvalorEconomia]);
        
         return redirect()->route('home');
     }  

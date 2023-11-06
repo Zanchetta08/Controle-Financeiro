@@ -51,6 +51,10 @@
                                     <label for="valorcategoria">Valor Máximo da Categoria:</label><br>
                                     <input type="text" id="valorcategoria" class="form-control" name="valorcategoria">
                                 </div>
+                                <div>
+                                    <label for="valoreconomia">Valor da Meta de Economia:</label><br>
+                                    <input type="text" id="valoreconomia" class="form-control" name="valoreconomia">
+                                </div>
                                 <input  type="submit" class="btn btn-primary" value="Criar Categoria">
                             </form> 
                         </div>
@@ -130,6 +134,9 @@
             <h3 class="d-flex justify-content-center">Alertas</h3>
             @foreach($somaValoresPorCategoria as $somaValor)
                 <p class="d-flex justify-content-center text-danger"><strong>A categoria {{ $somaValor['nome']}} está com um valor acumulado de 80% ou mais! Valor total até agora: R${{ $somaValor['somaValores'] }}</strong></p>
+            @endforeach
+            @foreach($naoAtingiu as $nao)
+                <p class="d-flex justify-content-center text-danger"><strong>A categoria {{ $nao['nome']}} não conseguiu atingir sua meta de economia, passando em: R${{ $nao['passou'] }}</strong></p>
             @endforeach
         </div>
     </div>
