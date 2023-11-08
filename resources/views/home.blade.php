@@ -87,6 +87,7 @@
                                         <input class="form-check-input" type="radio" name="categoria" id="categoria{{ $categoria->id }}" value="{{ $categoria->id }}">
                                         <label class="form-check-label" for="categoria{{ $categoria->id }}">
                                             {{ $categoria->nome }}
+                                            
                                         </label>
                                     </div>
                                 @endforeach
@@ -107,29 +108,20 @@
             <thead>
                 <tr>
                     <th scope="col">Despesas:</th>
-                    <!--<th scope="col">Valor</th>
-                    <th scope="col">Categoria</th>
-                    <th scope="col">Detalhes</th>-->
                 </tr>
             </thead>
             <tbody>
-                <tr> <!-- Abra uma linha de tabela fora do loop -->
+                <tr> <!-- Abre uma linha de tabela fora do loop -->
                     @foreach($despesas as $despesa)
-                    <td> <!-- Abra uma célula de tabela para cada despesa -->
+                    <td> <!-- Abre uma célula de tabela para cada despesa -->
                         <div class="clickable-row" data-bs-toggle="modal" data-bs-target="#despesaModal{{ $despesa->id }}">
                             {{ $despesa->nome }}
                         </div>
-                        <!--<td>R${{ $despesa->valor }}</td>
-                        <td>{{ $despesa->categoria->nome }}</td>
-                        <td>
-                            <button type="button" class="btn btn-primary">
-                                Ver Detalhes
-                            </button>
-                        </td>-->
+                        
                     </td>
                     @endforeach
 
-                </tr> <!-- Feche a linha de tabela fora do loop -->
+                </tr>  
             </tbody>
         </table>
     </div>
@@ -160,12 +152,13 @@
                     <p><strong>Categoria:</strong> {{ $despesa->categoria->nome }}</p>
                 </div>
                 <div class="modal-footer">
-                    <!-- <button type="button" class="btn btn-primary">Editar Despesa</button>
-                   <form action="/despesas/{{ $despesa->id }}" method="POST">-->
+                   
+                   <!----><a href="/despesas/edit/{{ $despesa->id }}" class="btn btn-primary">Editar Despesa</a>
+                   <form action="/despesas/{{ $despesa->id }}" method="POST"> 
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Deletar Despesa</button>
-                    </form>
+                     </form>
                     <a href="/categorias/edit/{{ $despesa->categoria->id }}" class="btn btn-primary">Editar Categoria</a>
                     <form action="/categorias/{{ $despesa->categoria->id }}" method="POST">
                         @csrf

@@ -26,6 +26,12 @@ Route::post('/renda', [App\Http\Controllers\HomeController::class, 'store']);
 //=============================================================== Despesas  
 Route::post('/despesas', [App\Http\Controllers\HomeController::class, 'storeDespesa']);
 Route::delete('/despesas/{id}', [App\Http\Controllers\HomeController::class,'destroyDespesa']);
+//-------------------------------------------------------------------------------------//
+Route::get('/despesas/edit/{id}', [App\Http\Controllers\HomeController::class,'atualizaDespesa']);
+Route::put('/despesas/update/{id}', [App\Http\Controllers\HomeController::class,'updateDespesa']);
+//-------------------------------------------------------------------------------------//
+
+
 
 //=============================================================== Categoria
 Route::post('/categorias', [App\Http\Controllers\HomeController::class, 'storeCategoria']);

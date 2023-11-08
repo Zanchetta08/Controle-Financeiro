@@ -45,6 +45,8 @@ class HomeController extends Controller
         return view('home', ['categorias' => $categorias, 'despesas' => $despesas, 'somaValoresPorCategoria' => $somaValoresPorCategoria, 'naoAtingiu' => $naoAtingiu]);
     }
 
+    //=================================================== Guardar a Renda Mensal
+
     public function store(Request $request)
     {
         $user = auth()->user();
@@ -56,7 +58,12 @@ class HomeController extends Controller
         
     }
     
-    //====================================================== Despesas
+    
+    
+//Parte de trabalho com DESPESAS criadas{
+
+    //====================================================== Guardar Despesas
+
     public function storeDespesa(Request $request){
         $despesa = new Despesa; 
         $despesa->nome = $request->nomeDespesa;
@@ -67,6 +74,8 @@ class HomeController extends Controller
         return redirect()->route('home');
     }
 
+    //================================================= Apagar Despesas
+
     public function destroyDespesa($id){
 
         Despesa::findOrFail($id)->delete();
@@ -74,7 +83,35 @@ class HomeController extends Controller
         return redirect()->route('home');
     }
 
-    //====================================================== Categorias
+    //=================================================== Att de despesas
+
+    public function atualizaDespesa($id){
+        
+        $despesa = Despesa::findOrFail($id);
+
+        return view('editDesp', ['despesa' => $despesa]);
+    }
+
+    public function updateDespesa(Request $request){
+
+        $despesa = Despesa::findOrFail($request->id);
+        
+        $despesa->nome = $request->nome;
+        $despesa->valor = $request->valor;
+        $despesa->categoria_id = $request->categoria;
+
+        $despesa->save();
+        return redirect()->route('home');
+    }
+    //}
+
+
+
+//============================================================================================================================================//
+//============================================================================================================================================//
+
+    //Parte de trabalho com CATEGORIAS criadas{
+    //=============================================== Armazena as Categorias
 
     public function storeCategoria(Request $request){
         
@@ -87,21 +124,25 @@ class HomeController extends Controller
         return redirect()->route('home');
     }
 
-   
+   //================================================ Editar Categorias
 
     public function updateCategoria(Request $request){
 
         $categoria = Categoria::findOrFail($request->id);
-        $categoria->update(['nome' => $request->editnomecategoria, 'value' => $request->editvalorcategoria, 'valueEconomia' => $request->editvalorEconomia]);
+        $categoria->update(['nome' => $request->editnomecategoria,
+                            'value' => $request->editvalorcategoria,
+                            'valueEconomia' => $request->editvalorEconomia]);
        
         return redirect()->route('home');
-    }  
+    }
 
     public function editCategoria($id){
         $categoria = Categoria::findOrFail($id);
 
         return view('edit', ['categoria' => $categoria]);
     }
+
+    //================================================ Apagar Categoria
 
     public function destroyCategoria($id){
 
@@ -111,3 +152,4 @@ class HomeController extends Controller
     }
 
 }
+//}
