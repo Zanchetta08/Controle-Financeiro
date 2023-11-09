@@ -112,14 +112,15 @@
             </thead>
             <tbody>
                 <tr> <!-- Abre uma linha de tabela fora do loop -->
-                    @foreach($despesas as $despesa)
-                    <td> <!-- Abre uma célula de tabela para cada despesa -->
-                        <div class="clickable-row" data-bs-toggle="modal" data-bs-target="#despesaModal{{ $despesa->id }}">
-                            {{ $despesa->nome }}
-                        </div>
-                        
-                    </td>
-                    @endforeach
+                @foreach($despesas as $despesa)
+                    <tr>
+                        <td>
+                            <div class="clickable-row" data-bs-toggle="modal" data-bs-target="#despesaModal{{ $despesa->id }}">
+                                {{ $despesa->nome }}
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
 
                 </tr>  
             </tbody>
@@ -146,6 +147,24 @@
                     <h5 class="modal-title" id="despesaModalLabel{{ $despesa->id }}">Detalhes da Despesa</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
+                <br>
+                <!-- Container para o texto e a barra de progresso -->
+                <div class="mx-auto text-center position-relative" style="width: 85%;">
+                    <!-- Barra de progresso externa -->
+                    <div class="progress border" style="border-radius: 5px;">
+                        <!-- Barra de progresso interna -->
+                        <div class="progress-bar" role="progressbar" style="width: {{ ($despesa->valor / $categoria->value) * 100 }}%;" aria-valuenow="{{ $despesa->valor }}" aria-valuemin="0" aria-valuemax="{{ $categoria->value }}">
+                        </div>
+
+                        <!-- Texto interno da barra de progresso -->
+                        <span style="color: black; position: absolute; left: 50%; transform: translateX(-50%);">{{ $despesa->valor }} / {{ $categoria->value - $categoria->valueEconomia}}</span>
+                    </div>
+
+                    <p style="border-left: 2px solid black; padding-left: 10px;">Valor Gasto / Valor da Categoria com meta de Economia</p>
+                </div>
+
+
                 <div class="modal-body">
                     <p><strong>Nome da Despesa:</strong> {{ $despesa->nome }}</p>
                     <p><strong>Valor da Despesa:</strong> R${{ $despesa->valor }}</p>
@@ -153,18 +172,19 @@
                 </div>
                 <div class="modal-footer">
                    
-                   <!----><a href="/despesas/edit/{{ $despesa->id }}" class="btn btn-primary">Editar Despesa</a>
-                   <form action="/despesas/{{ $despesa->id }}" method="POST"> 
+                    <a href="/despesas/edit/{{ $despesa->id }}" class="btn btn-primary">Editar Despesa</a> 
+                    <a href="/categorias/edit/{{ $despesa->categoria->id }}" class="btn btn-primary">Editar Categoria</a>
+                    <form action="/despesas/{{ $despesa->id }}" method="POST"> 
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Deletar Despesa</button>
                      </form>
-                    <a href="/categorias/edit/{{ $despesa->categoria->id }}" class="btn btn-primary">Editar Categoria</a>
-                    <form action="/categorias/{{ $despesa->categoria->id }}" method="POST">
+                     <form action="/categorias/{{ $despesa->categoria->id }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger"><ion-icon name="trash-outline"></ion-icon> Deletar Categoria</button>
-                    </form>
+                     </form>
+                     
                 </div>
             </div>
 

@@ -88,8 +88,8 @@ class HomeController extends Controller
     public function atualizaDespesa($id){
         
         $despesa = Despesa::findOrFail($id);
-
-        return view('editDesp', ['despesa' => $despesa]);
+        $categorias = Categoria::all();
+        return view('editDesp', ['despesa' => $despesa, 'categorias' => $categorias]);
     }
 
     public function updateDespesa(Request $request){
